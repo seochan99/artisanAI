@@ -1,3 +1,4 @@
+import 'package:artisan_ai/main.dart';
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatefulWidget {
@@ -23,7 +24,25 @@ class _ResultPageState extends State<ResultPage> {
         backgroundColor: Colors.white,
       ),
       // 입력받은 prompt를 출력
-      body: Text(widget.prompt),
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+          Text(widget.prompt),
+          const SizedBox(height: 20),
+          FutureBuilder<String>(
+            future: generateText(widget.prompt),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Text("ERROR : ${snapshot.error}");
+              } else {
+                return Text('${snapshot.data}');
+              }
+            },
+          )
+        ],
+      ),
     );
   }
 }

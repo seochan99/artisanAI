@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // api key
-const apiKey = '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';
+const apiKey = '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';
 const apiUrl = 'https://api.openai.com/v1/completions';
 
 void main() {
@@ -45,6 +45,7 @@ Future<String> generateText(String prompt) async {
   Map<String, dynamic> newresponse =
       jsonDecode(utf8.decode(response.bodyBytes));
 
+  print(newresponse);
   if (newresponse['choices'] != null && newresponse['choices'].isNotEmpty) {
     return newresponse['choices'][0]['text'];
   } else {
