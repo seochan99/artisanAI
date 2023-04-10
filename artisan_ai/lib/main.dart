@@ -5,22 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // api key
-const apiKey = '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';
+const apiKey = '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';
 const apiUrl = 'https://api.openai.com/v1/completions';
 
 void main() {
   runApp(const MyApp());
-
-  // prompt전달
-  String prompt =
-      "Please explain in detail the UI/UX that will be entered soon. It's a simple prompt format that separates functions with commas. This will be entered into a painting ai called Stable Diffusion.";
-  // prompt전달 함수 호출
-  Future<String> data = generateText(prompt);
-
-  // prompt전달 함수 호출 후 받은 답변 출력
-  data.then((value) {
-    print(value);
-  });
 }
 
 // string 자료형 'prompt'문장을 입력받아서 chatGPT에게 질문하고 질문에 해당하는 답변 출력 함수

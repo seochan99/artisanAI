@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class ResultPage extends StatefulWidget {
   final String prompt;
+  final String myText;
 
-  const ResultPage({super.key, required this.prompt});
+  const ResultPage({super.key, required this.prompt, required this.myText});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -15,6 +16,13 @@ class _ResultPageState extends State<ResultPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         title: const Text("Artisan AI Result"),
         titleTextStyle: const TextStyle(
           color: Colors.black,
@@ -27,7 +35,7 @@ class _ResultPageState extends State<ResultPage> {
       body: Column(
         children: [
           const SizedBox(height: 20),
-          Text(widget.prompt),
+          Text(widget.myText),
           const SizedBox(height: 20),
           FutureBuilder<String>(
             future: generateText(widget.prompt),

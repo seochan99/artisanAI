@@ -52,10 +52,13 @@ class _FirstPageState extends State<FirstPage> {
             // text입력창에 입력된 text를 result_page.dart로 전달
             TextButton(
                 onPressed: () {
-                  String prompt = _controller.text;
+                  String myText = _controller.text;
+                  String prompt =
+                      "${_controller.text},  A simple prompt format that distinguishes features with commas. his will be entered in the drawing ai called stable diffusion.";
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => ResultPage(prompt: prompt)),
+                        builder: (context) =>
+                            ResultPage(prompt: prompt, myText: myText)),
                   );
                 },
                 child: const Text(
