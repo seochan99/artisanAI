@@ -54,7 +54,7 @@ class _FirstPageState extends State<FirstPage> {
                 onPressed: () {
                   String myText = _controller.text;
                   String prompt =
-                      "${_controller.text},  A simple prompt format that distinguishes features with commas. his will be entered in the drawing ai called stable diffusion.";
+                      "${_controller.text}, 쉼표로 기능을 구분하는 prompt형식으로 알려줘. 예를 들어 UI/UX, 디자인, User Interface와 같이말이야. ";
                   Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) =>
