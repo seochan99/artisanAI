@@ -1,3 +1,4 @@
+import 'package:artisan_ai/Screens/result_page.dart';
 import 'package:flutter/material.dart';
 
 class FirstPage extends StatefulWidget {
@@ -21,6 +22,15 @@ class _FirstPageState extends State<FirstPage> {
           TextField(
             controller: _controller,
           ),
+          TextButton(
+              onPressed: () {
+                String prompt = _controller.text;
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => ResultPage(prompt: prompt)),
+                );
+              },
+              child: const Text("Get Results"))
         ],
       ),
     );
