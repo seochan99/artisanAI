@@ -9,10 +9,11 @@ const apiKey = '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';
 const apiUrl = 'https://api.openai.com/v1/completions';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
+
   // prompt전달
-  String prompt =
-      "Please explain in detail the UI/UX that will be entered soon. It's a simple prompt format that separates functions with commas. This will be entered into a painting ai called Stable Diffusion.";
+  String prompt = "hi, I'm a painter. I'm going to paint a picture.";
+  // "Please explain in detail the UI/UX that will be entered soon. It's a simple prompt format that separates functions with commas. This will be entered into a painting ai called Stable Diffusion.";
   // prompt전달 함수 호출
   Future<String> data = generateText(prompt);
 
@@ -40,10 +41,15 @@ Future<String> generateText(String prompt) async {
       'presence_penalty': 0
     }),
   );
+
   Map<String, dynamic> newresponse =
       jsonDecode(utf8.decode(response.bodyBytes));
 
-  return newresponse['choices'][0]['text'];
+  if (newresponse['choices'] != null && newresponse['choices'].isNotEmpty) {
+    return newresponse['choices'][0]['text'];
+  } else {
+    throw Exception("No Text generated");
+  }
 }
 
 class MyApp extends StatelessWidget {
