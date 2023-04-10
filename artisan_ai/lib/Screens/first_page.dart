@@ -16,12 +16,33 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Artisan AI"),
+        titleTextStyle: const TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        backgroundColor: Colors.white,
       ),
       body: Column(
         children: [
+          const SizedBox(height: 20),
+          // text입력창
           TextField(
             controller: _controller,
+            // 데코레이션
+            decoration: const InputDecoration(
+              hintText: "Please enter your prompt",
+              icon: Icon(Icons.send),
+              counterText: '0 characters',
+              filled: true,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black, width: 2),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+            ),
           ),
+
+          // text입력창에 입력된 text를 result_page.dart로 전달
           TextButton(
               onPressed: () {
                 String prompt = _controller.text;

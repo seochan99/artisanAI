@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // api key
-const apiKey = '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';
+const apiKey = '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';
 const apiUrl = 'https://api.openai.com/v1/completions';
 
 void main() {
-  // runApp(const MyApp());
+  runApp(const MyApp());
 
   // prompt전달
-  String prompt = "hi, I'm a painter. I'm going to paint a picture.";
-  // "Please explain in detail the UI/UX that will be entered soon. It's a simple prompt format that separates functions with commas. This will be entered into a painting ai called Stable Diffusion.";
+  String prompt =
+      "Please explain in detail the UI/UX that will be entered soon. It's a simple prompt format that separates functions with commas. This will be entered into a painting ai called Stable Diffusion.";
   // prompt전달 함수 호출
   Future<String> data = generateText(prompt);
 
