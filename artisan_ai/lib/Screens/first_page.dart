@@ -10,6 +10,7 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   final TextEditingController _controller = TextEditingController();
+  TextEditingController inputText = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
