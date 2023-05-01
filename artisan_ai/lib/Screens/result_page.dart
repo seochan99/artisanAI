@@ -18,7 +18,7 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
   TextEditingController inputText = TextEditingController();
-  String apikey = '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';
+  String apikey = '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';
   String url = 'https://api.openai.com/v1/images/generations';
   String? image;
   void getAIImage() async {

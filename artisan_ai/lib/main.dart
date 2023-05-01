@@ -1,23 +1,28 @@
 import 'dart:convert';
+import 'package:artisan_ai/Screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:artisan_ai/Screens/first_page.dart';
 import 'package:http/http.dart' as http;
 
 // api key
-const apiKey = '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';
+const apiKey = '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';
 const apiUrl = 'https://api.openai.com/v1/completions';
 String? inputText;
 String imageUrl = 'https://api.openai.com/v1/images/generations';
 String? image;
 void main() {
+  // await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
 // string 자료형 'prompt'문장을 입력받아서 chatGPT에게 질문하고 질문에 해당하는 답변 출력 함수
+// Futre 자료형은 비동기 함수를 사용할 때 사용
 Future<String> generateText(String prompt) async {
+  // response 변수에 chatGPT에게 질문한 결과를 저장
   final response = await http.post(
+    // chatGPT에게 질문할 때 필요한 정보들을 담은 변수들을 http.post 메소드를 통해 전달
     Uri.parse(apiUrl),
+    // chatGPT에게 질문할 때 필요한 정보들을 json 형태로 전달
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $apiKey'
@@ -33,6 +38,7 @@ Future<String> generateText(String prompt) async {
     }),
   );
 
+  // chatGPT에게 질문한 결과를 json 형태로 변환
   Map<String, dynamic> newresponse =
       jsonDecode(utf8.decode(response.bodyBytes));
 
@@ -69,8 +75,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: FirstPage(),
+    return MaterialApp(
+      title: "ChatGPT Demo",
+      // 디버그 배너 제거
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        // 아래 코드로 인해 모든 Material 위젯의 기본 색상이 Colors.green으로 설정
+        useMaterial3: true,
+      ),
+      home: const ChatScreen(),
+      // home: FirstPage(),
     );
   }
 }
