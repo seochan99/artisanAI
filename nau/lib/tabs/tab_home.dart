@@ -37,10 +37,6 @@ class _HomeState extends State<Home> {
     Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   }
 
-  // 위도, 경도로 주소 가져오기
-  // 주소 가져오기 (위도, 경도 -> 주소)
-  // 주소 가져오기 (위도, 경도 -> 주소)
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,22 +91,18 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             BannerSwiper(),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, top: 10, bottom: 20),
+            const Padding(
+              padding: EdgeInsets.all(10.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 500),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                    },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: nowLocation ? [] : [],
+                  SizedBox(height: 25),
+                  Text(
+                    "🎨 최근 업로된 작품",
+                    style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],

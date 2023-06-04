@@ -17,7 +17,7 @@ class BannerDetailScreen extends StatelessWidget {
         elevation: 2,
         foregroundColor: Colors.black87,
         backgroundColor: Colors.white,
-        title: const Text("나만의 지도, NUGU MAP"),
+        title: const Text("Nau Bot"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -37,7 +37,7 @@ class BannerDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Image.network(
-                "https://velog.velcdn.com/images/seochan99/post/3a8993cf-63b0-4b08-b6bb-8ba625d81498/image.png",
+                "https://velog.velcdn.com/images/seochan99/post/4c765707-3883-4fe7-bf02-ccd08dd7f11e/image.png",
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 50),
@@ -62,7 +62,7 @@ class BannerDetailScreen extends StatelessWidget {
         final title = line.substring(7);
         textSpans.add(
           TextSpan(
-            text: '🎯 $title\n', // Include line breaks
+            text: '🎨 $title\n', // Include line breaks
             style: const TextStyle(
               fontSize: 23,
               fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,49 @@ class AuthWidget extends StatefulWidget {
 
 class _AuthWidgetState extends State<AuthWidget> {
   final _formKey = GlobalKey<FormState>();
-
+  TextEditingController nameController = TextEditingController();
+  bool isEditing = true;
   late String email;
   late String password;
   bool isInput = true;
   bool isSignIn = true;
+
+  Future<void> fetchUserProfile() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot snapshot =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      if (snapshot.exists) {
+        setState(() {
+          nameController.text = snapshot['name'];
+        });
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> updateProfile() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      print(uid);
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'name': nameController.text,
+      });
+      setState(() {
+        isEditing = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('프로필이 업데이트되었습니다.')),
+      );
+    } catch (e) {
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('프로필 업데이트 중 오류가 발생했습니다.')),
+      );
+    }
+  }
 
   signIn() async {
     try {
@@ -43,6 +82,12 @@ class _AuthWidgetState extends State<AuthWidget> {
         print(e.code);
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserProfile();
   }
 
   // 로그아웃
@@ -225,14 +270,32 @@ class _AuthWidgetState extends State<AuthWidget> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  isSignIn ? resultEmail : "이메일 인증을 거쳐야 로그인 가능합니다.",
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
+                if (isSignIn)
+                  Column(
+                    children: [
+                      // TextFormField(
+                      //   controller: nameController,
+                      //   decoration: const InputDecoration(
+                      //     labelText: '이름',
+                      //   ),
+                      // ),
+                      Text(
+                        email,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     updateProfile();
+                      //   },
+                      //   child: const Text('프로필 업데이트'),
+                      // ),
+                    ],
                   ),
-                ),
                 const SizedBox(
                   height: 60,
                 ),
