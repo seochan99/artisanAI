@@ -53,6 +53,7 @@ dependencies:
     image_gallery_saver: ^2.0.1
     dio: ^5.1.2
     cached_network_image: ^3.2.3
+    intl: ^0.18.1
 
 dev_dependencies:
     flutter_test:
