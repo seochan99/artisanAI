@@ -31,7 +31,7 @@ There should be a description of app design, web design, function, atmosphere, e
   void initState() {
     chatGPT = OpenAI.instance.build(
       // token: dotenv.env["API_KEY"],
-      token: "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",
+      token: "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",
       baseOption: HttpSetup(
         receiveTimeout: const Duration(milliseconds: 60000),
       ),
