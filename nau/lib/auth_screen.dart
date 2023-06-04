@@ -51,6 +51,16 @@ class _AuthWidgetState extends State<AuthWidget> {
     setState(() {
       isInput = true;
     });
+    // 로그인 화면 으로 이동
+    goLogin();
+  }
+
+  goLogin() {
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+  }
+
+  goIndex() {
+    Navigator.pushNamedAndRemoveUntil(context, '/index', (route) => false);
   }
 
   signUp() async {
@@ -205,7 +215,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                   height: 30,
                 ),
                 Text(
-                  isSignIn ? "$resultEmail 로그인" : resultEmail,
+                  isSignIn ? "로그인 계정" : resultEmail,
                   style: const TextStyle(
                     fontSize: 20,
                     color: Colors.black,
@@ -216,7 +226,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                   height: 20,
                 ),
                 Text(
-                  isSignIn ? "$resultEmail 로그인" : "이메일 인증을 거쳐야 로그인 가능합니다.",
+                  isSignIn ? resultEmail : "이메일 인증을 거쳐야 로그인 가능합니다.",
                   style: const TextStyle(
                     fontSize: 20,
                     color: Colors.black,
@@ -224,7 +234,20 @@ class _AuthWidgetState extends State<AuthWidget> {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 60,
+                ),
+                isSignIn
+                    ? ElevatedButton(
+                        onPressed: () {
+                          if (isSignIn) {
+                            goIndex();
+                          } else {}
+                        },
+                        child: Text(isSignIn ? "NaU Bot 이동" : ""),
+                      )
+                    : const SizedBox(),
+                const SizedBox(
+                  height: 70,
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -237,7 +260,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                       });
                     }
                   },
-                  child: Text(isSignIn ? "Sign Out" : "로그인"),
+                  child: Text(isSignIn ? "로그아웃" : "로그인"),
                 ),
               ],
             ),

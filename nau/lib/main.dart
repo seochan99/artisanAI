@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nau/auth_screen.dart';
 import 'package:nau/firebase_options.dart';
+import 'package:nau/index_screen.dart';
 
 // toast messgaege
 showToast(String msg) {
@@ -37,6 +38,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: const AuthWidget(),
+      routes: {
+        '/login': (context) => const AuthWidget(),
+        '/index': (context) => const IndexScreen(),
+      },
     );
   }
 }
