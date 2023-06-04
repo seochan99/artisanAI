@@ -50,6 +50,7 @@ dependencies:
         git:
             url: https://github.com/iampawan/Flutter-ChatGPT.git
     velocity_x: ^4.1.0
+    image_gallery_saver: ^2.0.1
 
 dev_dependencies:
     flutter_test:

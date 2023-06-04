@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 class ChatMessage extends StatelessWidget {
-  const ChatMessage(
-      {super.key,
-      required this.text,
-      required this.sender,
-      this.isImage = false});
+  const ChatMessage({
+    Key? key,
+    required this.text,
+    required this.sender,
+    this.isImage = false,
+  }) : super(key: key);
 
   final String text;
   final String sender;
@@ -26,6 +29,25 @@ class ChatMessage extends StatelessWidget {
       }
     }
 
+    final formattedText = getFormattedText();
+
+    void saveImage() async {
+      var imageBytes = await NetworkAssetBundle(Uri.parse(text)).load("");
+      final result =
+          await ImageGallerySaver.saveImage(imageBytes.buffer.asUint8List());
+      if (result['isSuccess']) {
+        // Image saved successfully
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Image saved successfully')),
+        );
+      } else {
+        // Saving image failed
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to save image')),
+        );
+      }
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -40,8 +62,10 @@ class ChatMessage extends StatelessWidget {
                 backgroundColor: Colors.white,
               ).pOnly(right: 16),
         Expanded(
-            child: isImage
-                ? AspectRatio(
+          child: isImage
+              ? GestureDetector(
+                  onLongPress: saveImage,
+                  child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: Image.network(
                       text,
@@ -50,16 +74,20 @@ class ChatMessage extends StatelessWidget {
                               ? child
                               : const CircularProgressIndicator.adaptive(),
                     ),
-                  )
-                : sender == "bot"
-                    ? text.trim().text.bodyText1(context).make().px8()
-                    : Text(
-                        getFormattedText(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ).px8()),
+                  ),
+                )
+              : sender == "bot"
+                  ? SelectableText(
+                      text.trim(),
+                    )
+                  : Text(
+                      formattedText,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ).px8(),
+        ),
       ],
     ).py8();
   }
