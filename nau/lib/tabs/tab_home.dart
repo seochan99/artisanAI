@@ -12,13 +12,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Future<Map<String, dynamic>?> user;
   bool nowLocation = false;
   String selectedKeyword = "한강"; // 선택한 키워드 초기값
 
 // Set the latitude and longitude values
-
-  dynamic userInfo = '';
 
   void handleKeywordSelected(String keyword) {
     setState(() {
@@ -29,13 +26,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-
-    // user의 값이 null일때 loginScreen으로 이동하고 토큰값 지우기
-    user.then((value) {
-      if (value == null) {
-        goLogin();
-      }
-    });
   }
 
   goLogin() async {
@@ -67,7 +57,7 @@ class _HomeState extends State<Home> {
               child: Row(
                 children: [
                   const Text(
-                    '내만산',
+                    'Nau Bot',
                     style: TextStyle(
                       fontSize: 21,
                       fontWeight: FontWeight.w600,
@@ -76,7 +66,7 @@ class _HomeState extends State<Home> {
                   const SizedBox(width: 5),
                   Image.asset(
                     'assets/images/logo.png',
-                    width: 18,
+                    width: 40,
                   ),
                 ],
               ),

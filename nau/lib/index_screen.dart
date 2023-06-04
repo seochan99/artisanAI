@@ -54,15 +54,15 @@ class _IndexScreenState extends State<IndexScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              currentIndex == 1 ? Icons.forest : Icons.forest_outlined,
+              currentIndex == 1 ? Icons.all_inbox : Icons.all_inbox_outlined,
             ),
             label: '모두의 UI/UX',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              currentIndex == 2 ? Icons.park : Icons.park_outlined,
+              currentIndex == 2 ? Icons.palette : Icons.palette_outlined,
             ),
-            label: '나만의 UI/UXs',
+            label: '나만의 UI/UX',
           ),
           BottomNavigationBarItem(
             icon: Icon(
