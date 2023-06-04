@@ -128,6 +128,7 @@ class _MypageState extends State<Mypage> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
+            const SizedBox(height: 40.0),
             GestureDetector(
               onTap: isEditing ? pickImage : null,
               child: const CircleAvatar(
@@ -151,6 +152,7 @@ class _MypageState extends State<Mypage> {
               ),
               maxLines: null,
             ),
+            const SizedBox(height: 40.0),
             ElevatedButton(
               onPressed: isEditing ? updateProfile : null,
               child: const Text('프로필 업데이트'),
