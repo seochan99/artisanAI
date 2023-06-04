@@ -112,6 +112,9 @@ class _MypageState extends State<Mypage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 2,
+        foregroundColor: Colors.black87,
+        backgroundColor: Colors.white,
         title: const Text('My Page'),
         actions: [
           IconButton(

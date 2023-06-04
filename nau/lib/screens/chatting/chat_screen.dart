@@ -21,11 +21,17 @@ class _ChatScreenState extends State<ChatScreen> {
 
   String highQualityDesign =
       "high-quality UI/UX design, trending on Dribbble, Behance";
+
+  String enginering = """
+Please explain in detail the app UI/UX that will appear in the picture of the previous word. It's a simple prompt format that separates functions with commas. This will be entered into a painting ai called Stable Diffusion.
+
+There should be a description of app design, web design, function, atmosphere, etc. For example: 'High quality, app design, message, pastel tone, neat, latest'
+  """;
   @override
   void initState() {
     chatGPT = OpenAI.instance.build(
       // token: dotenv.env["API_KEY"],
-      token: "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",
+      token: "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",
       baseOption: HttpSetup(
         receiveTimeout: const Duration(milliseconds: 60000),
       ),
@@ -42,9 +48,20 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _sendMessage() async {
     if (_controller.text.isEmpty) return;
+
+    // String promptText = "";
+
+    // _isImageSearch
+    //     ? promptText =
+    //         "${_controller.text}$highQualityDesign ${_isWebPlatform ? "Web" : "mobile App"}"
+    //     : "${_controller.text}$highQualityDesign ${_isWebPlatform ? "Web" : "mobile App"}";
+
+    // print(promptText);
+
     ChatMessage message = ChatMessage(
-      text:
-          "${_controller.text}$highQualityDesign ${_isWebPlatform ? "Web" : "mobile App"}",
+      text: _isImageSearch
+          ? "${_controller.text}$highQualityDesign ${_isWebPlatform ? "Web" : "mobile App"}"
+          : "${_controller.text} $enginering",
       sender: "user",
       isImage: false,
     );
@@ -162,6 +179,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 2,
+        foregroundColor: Colors.black87,
+        backgroundColor: Colors.white,
         title: const Text(
           "나만의 UI/UX Nau Bot",
           style: TextStyle(

@@ -63,11 +63,11 @@ class _AuthWidgetState extends State<AuthWidget> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        print(value);
         if (value.user!.emailVerified) {
           setState(() {
             isInput = false;
           });
+          goIndex();
         } else {
           showToast("Email Verified ERROR");
         }
@@ -300,13 +300,17 @@ class _AuthWidgetState extends State<AuthWidget> {
                   height: 60,
                 ),
                 isSignIn
-                    ? ElevatedButton(
-                        onPressed: () {
-                          if (isSignIn) {
-                            goIndex();
-                          } else {}
-                        },
-                        child: Text(isSignIn ? "NaU Bot 이동" : ""),
+                    ? Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              if (isSignIn) {
+                                goIndex();
+                              } else {}
+                            },
+                            child: Text(isSignIn ? "NaU Bot 이동" : ""),
+                          ),
+                        ],
                       )
                     : const SizedBox(),
                 const SizedBox(

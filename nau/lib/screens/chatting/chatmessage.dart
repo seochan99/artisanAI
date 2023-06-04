@@ -18,6 +18,9 @@ class ChatMessage extends StatelessWidget {
       if (text.contains("high")) {
         final parts = text.split("high");
         return parts.first.trim();
+      } else if (text.contains("Please")) {
+        final parts = text.split("Please");
+        return parts.first.trim();
       } else {
         return text;
       }
