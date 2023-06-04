@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nau/screens/chatting/chat_screen.dart';
 import 'package:nau/tabs/tab_home.dart';
-import 'package:nau/tabs/tab_my_work.dart';
 import 'package:nau/tabs/tab_mypage.dart';
 import 'package:nau/tabs/tab_we_work.dart';
 
@@ -27,7 +27,7 @@ class _IndexScreenState extends State<IndexScreen> {
   final List<Widget> tabs = [
     const Home(),
     const WeWork(),
-    const MyWork(), //임시
+    const ChatScreen(), //임시
     const Mypage(),
   ];
   @override

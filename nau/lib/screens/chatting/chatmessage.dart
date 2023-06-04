@@ -17,18 +17,28 @@ class ChatMessage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(sender)
-            .text
-            .subtitle1(context)
-            .make()
-            .box
-            .color(sender == "user"
-                ? const Color.fromARGB(255, 172, 220, 255)
-                : const Color.fromARGB(255, 187, 247, 218))
-            .p16
-            .rounded
-            .alignCenter
-            .makeCentered(),
+        sender == "bot"
+            ? const CircleAvatar(
+                backgroundImage: AssetImage("assets/images/icon.png"),
+              ).pOnly(right: 16)
+            : const CircleAvatar(
+                backgroundImage: NetworkImage(
+                  "https://avatars.githubusercontent.com/u/78739194?v=4",
+                ),
+                backgroundColor: Colors.white,
+              ).pOnly(right: 16),
+        // Text(sender)
+        //     .text
+        //     .subtitle1(context)
+        //     .make()
+        //     .box
+        //     .color(sender == "user"
+        //         ? const Color.fromARGB(255, 172, 220, 255)
+        //         : const Color.fromARGB(255, 187, 247, 218))
+        //     .p16
+        //     .rounded
+        //     .alignCenter
+        //     .makeCentered(),
         Expanded(
           child: isImage
               ? AspectRatio(

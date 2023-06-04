@@ -1,6 +1,5 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'chatmessage.dart';
@@ -20,10 +19,13 @@ class _ChatScreenState extends State<ChatScreen> {
   bool _isImageSearch = false;
   bool _isTyping = false;
 
+  String highQualityDesign =
+      "high-quality UI/UX design, trending on Dribbble, Behance";
   @override
   void initState() {
     chatGPT = OpenAI.instance.build(
-      token: dotenv.env["API_KEY"],
+      // token: dotenv.env["API_KEY"],
+      token: "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",
       baseOption: HttpSetup(
         receiveTimeout: const Duration(milliseconds: 60000),
       ),
@@ -41,7 +43,8 @@ class _ChatScreenState extends State<ChatScreen> {
   void _sendMessage() async {
     if (_controller.text.isEmpty) return;
     ChatMessage message = ChatMessage(
-      text: "${_controller.text}UI/UX Design ${_isWebPlatform ? "Web" : "App"}",
+      text:
+          "${_controller.text}$highQualityDesign ${_isWebPlatform ? "Web" : "mobile App"}",
       sender: "user",
       isImage: false,
     );
@@ -96,7 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
               controller: _controller,
               onSubmitted: (value) => _sendMessage(),
               decoration: const InputDecoration.collapsed(
-                hintText: "원하시는 UI를 입력해주세요!",
+                hintText: "텍스트를 입력해주세요!",
               ),
             ),
           ),
@@ -112,15 +115,22 @@ class _ChatScreenState extends State<ChatScreen> {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text("Select Platform"),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
+                  title: const Center(
+                    child: Text(
+                      "플랫폼을 선택해주세요.",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
                         onPressed: () {
                           _isWebPlatform = true;
                           // String appendedText = ", Web Design";
                           // _controller.text += appendedText;
+                          _isImageSearch = true;
+                          _sendMessage();
                           Navigator.of(context).pop();
                         },
                         child: const Text("Web"),
@@ -130,82 +140,36 @@ class _ChatScreenState extends State<ChatScreen> {
                           _isWebPlatform = false;
                           // String appendedText = ", App Design";
                           // _controller.text += appendedText;
+                          _isImageSearch = true;
+                          _sendMessage();
                           Navigator.of(context).pop();
                         },
                         child: const Text("App"),
                       ),
                     ],
                   ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        _isImageSearch = true;
-                        Navigator.of(context).pop();
-                        _sendMessage();
-                      },
-                      child: const Text("Generate Image"),
-                    ),
-                  ],
                 ),
               );
             },
-            child: const Text("Select Platform"),
-          ),
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () {
-              // 이미지 공유 로직 구현
-              shareImage();
-            },
+            child: const Text("Generate Image"),
           ),
         ],
       ),
     );
   }
 
-  void shareImage() {
-    // 이미지 공유 다이얼로그 표시
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Share Image"),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                // 이미지를 이메일로 공유하는 로직 구현
-                shareViaEmail();
-                Navigator.of(context).pop();
-              },
-              child: const Text("Share via Email"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // 이미지를 소셜 미디어로 공유하는 로직 구현
-                shareViaSocialMedia();
-                Navigator.of(context).pop();
-              },
-              child: const Text("Share via Social Media"),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void shareViaEmail() {
-    // 이메일 공유 로직 구현
-  }
-
-  void shareViaSocialMedia() {
-    // 소셜 미디어 공유 로직 구현
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("UI/UX Chatbot")),
+      appBar: AppBar(
+        title: const Text(
+          "나만의 UI/UX Nau Bot",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20.0,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
