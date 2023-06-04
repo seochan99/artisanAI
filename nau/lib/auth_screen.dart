@@ -87,88 +87,108 @@ class _AuthWidgetState extends State<AuthWidget> {
     return [
       // Text Form Field
       Text(
-        isSignIn ? "Sign In" : "Sign Up",
+        isSignIn ? "로그인" : "회원 가입",
         style: const TextStyle(
           fontSize: 30,
-          color: Colors.indigo,
-          fontWeight: FontWeight.w500,
+          color: Colors.black,
+          fontWeight: FontWeight.w600,
         ),
         textAlign: TextAlign.center,
       ),
 
       // Form
-      Form(
-        key: _formKey,
+      Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            // email
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'email'),
-              validator: (value) {
-                if (value?.isEmpty ?? false) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-              onSaved: (String? value) {
-                email = value ?? "";
-              },
-            ),
-            // password
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'password',
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  // email
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'email'),
+                    validator: (value) {
+                      if (value?.isEmpty ?? false) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    onSaved: (String? value) {
+                      email = value ?? "";
+                    },
+                  ),
+                  // password
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'password',
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value?.isEmpty ?? false) {
+                        return 'Please enter Password';
+                      }
+                      return null;
+                    },
+                    onSaved: (String? value) {
+                      password = value ?? "";
+                    },
+                  ),
+                ],
               ),
-              obscureText: true,
-              validator: (value) {
-                if (value?.isEmpty ?? false) {
-                  return 'Please enter Password';
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState?.validate() ?? false) {
+                  _formKey.currentState?.save();
+                  print("Email : $email, Password : $password");
+                  if (isSignIn) {
+                    signIn();
+                  } else {
+                    signUp();
+                  }
                 }
-                return null;
               },
-              onSaved: (String? value) {
-                password = value ?? "";
-              },
+              child: Text(isSignIn ? "로그인" : "회원 가입"),
             ),
           ],
         ),
       ),
-      ElevatedButton(
-        onPressed: () {
-          if (_formKey.currentState?.validate() ?? false) {
-            _formKey.currentState?.save();
-            print("Email : $email, Password : $password");
-            if (isSignIn) {
-              signIn();
-            } else {
-              signUp();
-            }
-          }
-        },
-        child: Text(isSignIn ? "Sign In" : "Sign Up"),
+
+      Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            RichText(
+              textAlign: TextAlign.right,
+              text: TextSpan(
+                  text: isSignIn ? "계정이 없으신가요?" : "계정이 있으신가요?",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  children: const <TextSpan>[]),
+            ),
+            RichText(
+                text: TextSpan(
+              text: isSignIn ? "회원가입" : "로그인",
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  setState(() {
+                    isSignIn = !isSignIn;
+                  });
+                },
+            ))
+          ],
+        ),
       ),
-      RichText(
-        textAlign: TextAlign.right,
-        text: TextSpan(
-            text: "go",
-            style: Theme.of(context).textTheme.bodyLarge,
-            children: <TextSpan>[
-              TextSpan(
-                text: isSignIn ? "Sign Up" : "Sign In",
-                style: const TextStyle(
-                  color: Colors.indigo,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    setState(() {
-                      isSignIn = !isSignIn;
-                    });
-                  },
-              )
-            ]),
-      )
     ];
   }
 
@@ -177,8 +197,8 @@ class _AuthWidgetState extends State<AuthWidget> {
     return [
       Text(
         isSignIn
-            ? "$resultEmail Sign In"
-            : "$resultEmail Sign Up, 이메일 인증을 거쳐야 로그인 가능합니다.",
+            ? "$resultEmail 로그인"
+            : "$resultEmail 회원 가입, 이메일 인증을 거쳐야 로그인 가능합니다.",
         style: const TextStyle(
           fontSize: 30,
           color: Colors.black,
@@ -196,7 +216,7 @@ class _AuthWidgetState extends State<AuthWidget> {
             });
           }
         },
-        child: Text(isSignIn ? "Sign Out" : "Sign In"),
+        child: Text(isSignIn ? "Sign Out" : "로그인"),
       ),
     ];
   }
