@@ -26,8 +26,8 @@ class _IndexScreenState extends State<IndexScreen> {
   int currentIndex = 0;
   final List<Widget> tabs = [
     const Home(),
-    const MyWork(), //임시
     const WeWork(),
+    const MyWork(), //임시
     const Mypage(),
   ];
   @override
