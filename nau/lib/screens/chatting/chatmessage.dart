@@ -14,6 +14,15 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String getFormattedText() {
+      if (text.contains("high")) {
+        final parts = text.split("high");
+        return parts.first.trim();
+      } else {
+        return text;
+      }
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -27,32 +36,27 @@ class ChatMessage extends StatelessWidget {
                 ),
                 backgroundColor: Colors.white,
               ).pOnly(right: 16),
-        // Text(sender)
-        //     .text
-        //     .subtitle1(context)
-        //     .make()
-        //     .box
-        //     .color(sender == "user"
-        //         ? const Color.fromARGB(255, 172, 220, 255)
-        //         : const Color.fromARGB(255, 187, 247, 218))
-        //     .p16
-        //     .rounded
-        //     .alignCenter
-        //     .makeCentered(),
         Expanded(
-          child: isImage
-              ? AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.network(
-                    text,
-                    loadingBuilder: (context, child, loadingProgress) =>
-                        loadingProgress == null
-                            ? child
-                            : const CircularProgressIndicator.adaptive(),
-                  ),
-                )
-              : text.trim().text.bodyText1(context).make().px8(),
-        ),
+            child: isImage
+                ? AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: Image.network(
+                      text,
+                      loadingBuilder: (context, child, loadingProgress) =>
+                          loadingProgress == null
+                              ? child
+                              : const CircularProgressIndicator.adaptive(),
+                    ),
+                  )
+                : sender == "bot"
+                    ? text.trim().text.bodyText1(context).make().px8()
+                    : Text(
+                        getFormattedText(),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ).px8()),
       ],
     ).py8();
   }
