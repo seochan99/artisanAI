@@ -195,28 +195,54 @@ class _AuthWidgetState extends State<AuthWidget> {
   List<Widget> getResultWidget() {
     String resultEmail = FirebaseAuth.instance.currentUser!.email!;
     return [
-      Text(
-        isSignIn
-            ? "$resultEmail 로그인"
-            : "$resultEmail 회원 가입, 이메일 인증을 거쳐야 로그인 가능합니다.",
-        style: const TextStyle(
-          fontSize: 30,
-          color: Colors.black,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      ElevatedButton(
-        onPressed: () {
-          if (isSignIn) {
-            signOut();
-          } else {
-            setState(() {
-              isInput = true;
-              isSignIn = true;
-            });
-          }
-        },
-        child: Text(isSignIn ? "Sign Out" : "로그인"),
+      Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  isSignIn ? "$resultEmail 로그인" : resultEmail,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  isSignIn ? "$resultEmail 로그인" : "이메일 인증을 거쳐야 로그인 가능합니다.",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (isSignIn) {
+                      signOut();
+                    } else {
+                      setState(() {
+                        isInput = true;
+                        isSignIn = true;
+                      });
+                    }
+                  },
+                  child: Text(isSignIn ? "Sign Out" : "로그인"),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     ];
   }
