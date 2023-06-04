@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -64,18 +66,43 @@ class ChatMessage extends StatelessWidget {
         Expanded(
           child: isImage
               ? GestureDetector(
-                  onLongPress: saveImage,
-                  child: AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: Image.network(
-                      text,
-                      loadingBuilder: (context, child, loadingProgress) =>
-                          loadingProgress == null
-                              ? child
-                              : const CircularProgressIndicator.adaptive(),
-                    ),
-                  ),
-                )
+                  onLongPress: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: const Text("저장하시겠습니까?"),
+                            actions: [
+                              OutlinedButton(
+                                  onPressed: () {
+                                    _save(context);
+                                  },
+                                  child: const Text("저장")),
+                              OutlinedButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Cancel'),
+                                  child: const Text("취소")),
+                            ],
+                          )),
+                  child: CachedNetworkImage(
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      imageUrl: text,
+                      errorWidget: (context, url, error) =>
+                          Image.asset("assets/main.png"),
+                      fit: BoxFit.fill))
+
+              // GestureDetector(
+              //     onLongPress: saveImage,
+              //     child: AspectRatio(
+              //       aspectRatio: 16 / 9,
+              //       child: Image.network(
+              //         text,
+              //         loadingBuilder: (context, child, loadingProgress) =>
+              //             loadingProgress == null
+              //                 ? child
+              //                 : const CircularProgressIndicator.adaptive(),
+              //       ),
+              //     ),
+              //   )
               : sender == "bot"
                   ? SelectableText(
                       text.trim(),
@@ -90,5 +117,17 @@ class ChatMessage extends StatelessWidget {
         ),
       ],
     ).py8();
+  }
+
+  _save(BuildContext context) async {
+    var response = await Dio()
+        .get(text, options: Options(responseType: ResponseType.bytes));
+    final result = await ImageGallerySaver.saveImage(
+        Uint8List.fromList(response.data),
+        quality: 60,
+        name: "hello");
+
+    Navigator.pop(context);
+    print(result);
   }
 }
