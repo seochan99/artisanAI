@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:nau/index_screen.dart';
+import 'package:nau/widgets/banner.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -93,6 +94,7 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            BannerSwiper(),
             Padding(
               padding: const EdgeInsets.only(left: 25, top: 10, bottom: 20),
               child: Column(

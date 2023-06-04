@@ -36,7 +36,7 @@ class _IndexScreenState extends State<IndexScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         iconSize: 30,
-        selectedItemColor: Colors.green,
+        selectedItemColor: Colors.indigo.shade400,
         unselectedItemColor: Colors.black,
         selectedLabelStyle: const TextStyle(fontSize: 12),
         currentIndex: currentIndex,
