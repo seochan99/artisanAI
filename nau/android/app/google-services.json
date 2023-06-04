@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "791241166671",
+    "project_id": "nau-bot",
+    "storage_bucket": "nau-bot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791241166671:android:e477a4993d9d32f3077f3a",
+        "android_client_info": {
+          "package_name": "com.example.nau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791241166671-9db79kg338mr7g2vbc35glqr5m7ci4ti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVK7O6RlLKvNFpm2cpJxhnkfcExRjUs3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791241166671-9db79kg338mr7g2vbc35glqr5m7ci4ti.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "791241166671-5skb5cb590qua8gdtstck13n4fik3jks.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nau"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

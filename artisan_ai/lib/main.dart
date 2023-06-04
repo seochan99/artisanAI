@@ -1,12 +1,13 @@
 import 'dart:convert';
-import 'package:artisan_ai/Screens/chat_screen.dart';
+import 'dart:math';
+import 'package:artisan_ai/Screens/first_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
 
 // api key
-const apiKey = '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';
 const apiUrl = 'https://api.openai.com/v1/completions';
+const apiKey = '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';
 String? inputText;
 String imageUrl = 'https://api.openai.com/v1/images/generations';
 String? image;
@@ -41,12 +42,14 @@ Future<String> generateText(String prompt) async {
   // chatGPT에게 질문한 결과를 json 형태로 변환
   Map<String, dynamic> newresponse =
       jsonDecode(utf8.decode(response.bodyBytes));
+  print(newresponse);
 
   if (newresponse['choices'] != null && newresponse['choices'].isNotEmpty) {
     inputText = newresponse['choices'][0]['text'];
+
     return newresponse['choices'][0]['text'];
   } else {
-    throw Exception("No Text generated");
+    throw Exception(e);
   }
 }
 
@@ -84,8 +87,8 @@ class MyApp extends StatelessWidget {
         // 아래 코드로 인해 모든 Material 위젯의 기본 색상이 Colors.green으로 설정
         useMaterial3: true,
       ),
-      home: const ChatScreen(),
-      // home: FirstPage(),
+      // home: const ChatScreen(),
+      home: const FirstPage(),
     );
   }
 }

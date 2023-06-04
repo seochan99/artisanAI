@@ -32,35 +32,23 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
 // 메시지 전송
-  void _sendMessage() async {
-    if (_controller.text.isEmpty) return;
-    ChatMessage message = ChatMessage(
-      text: _controller.text,
-      sender: "user",
-      isImage: false,
-    );
-
+  void _sendMessgage() {
+    ChatMessage message = ChatMessage(text: _controller.text, sender: 'user');
     setState(() {
       _messages.insert(0, message);
-      _isTyping = true;
     });
-
     _controller.clear();
 
-    if (_isImageSearch) {
-      final request = GenerateImage(message.text, 1, size: "256x256");
-
-      final response = await chatGPT!.generateImage(request);
-      Vx.log(response!.data!.last!.url!);
-      insertNewData(response.data!.last!.url!, isImage: true);
-    } else {
-      final request =
-          CompleteText(prompt: message.text, model: kTranslateModelV3);
-
-      final response = await chatGPT!.onCompleteText(request: request);
-      Vx.log(response!.choices[0].text);
-      insertNewData(response.choices[0].text, isImage: false);
-    }
+    final request = CompleteText(
+      prompt: message.text,
+      model: kChatGptTurbo,
+      maxTokens: 200,
+    );
+    // _subscription = chatGPT!
+    //     .builder("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",
+    //         orgID: "")
+    //     .onCompleteStream(request: request)
+    //     .listen((event) {});
   }
 
   Widget _buildTextComposer() {

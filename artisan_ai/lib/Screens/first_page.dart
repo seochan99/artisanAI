@@ -11,6 +11,7 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
   final TextEditingController _controller = TextEditingController();
   TextEditingController inputText = TextEditingController();
+  bool isWeb = false; // 추가: 앱 또는 웹 여부를 나타내는 변수
 
   @override
   Widget build(BuildContext context) {
@@ -28,44 +29,48 @@ class _FirstPageState extends State<FirstPage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            // text입력창
+            const SizedBox(height: 50),
             TextField(
               controller: _controller,
-              // 데코레이션
               maxLength: 30,
               decoration: const InputDecoration(
-                  hintText: "Please enter your prompt",
-                  icon: Icon(Icons.send, color: Colors.black),
-                  filled: true,
-                  // 인풋 클릭 전 테두리 색상
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  // 인풋 클릭시 테두리 색상
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  )),
+                hintText: "Please enter your prompt",
+                icon: Icon(Icons.send, color: Colors.black),
+                filled: true,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
             ),
-
-            // text입력창에 입력된 text를 result_page.dart로 전달
-            TextButton(
-                onPressed: () {
-                  String myText = _controller.text;
-                  String prompt =
-                      "${_controller.text}, 쉼표로 기능을 구분하는 prompt형식으로 알려줘. 예를 들어 UI/UX, 디자인, User Interface와 같이말이야. ";
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ResultPage(prompt: prompt, myText: myText)),
-                  );
-                },
-                child: const Text(
-                  "Get Results",
-                  style: TextStyle(color: Colors.black),
-                ))
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                String myText = _controller.text;
+                String additionalText = isWeb
+                    ? "Web Design"
+                    : "APP Design"; // 추가: 앱 또는 웹에 따른 문자열 설정
+                String prompt =
+                    "${_controller.text}, Please let me know in the form of a prompt that separates functions by commas. For example, UI/UX, design, and User Interface, $additionalText";
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ResultPage(prompt: prompt, myText: myText),
+                  ),
+                );
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.black),
+              ),
+              child: const Text(
+                "Get Results",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
