@@ -183,7 +183,7 @@ There should be a description of app design, web design, function, atmosphere, e
         foregroundColor: Colors.black87,
         backgroundColor: Colors.white,
         title: const Text(
-          "Nau Bot",
+          "NaU Bot",
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 20.0,

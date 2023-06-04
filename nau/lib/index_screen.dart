@@ -62,7 +62,7 @@ class _IndexScreenState extends State<IndexScreen> {
             icon: Icon(
               currentIndex == 2 ? Icons.palette : Icons.palette_outlined,
             ),
-            label: '나만의 UI/UX',
+            label: 'NaU Bot',
           ),
           BottomNavigationBarItem(
             icon: Icon(

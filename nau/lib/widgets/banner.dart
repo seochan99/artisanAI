@@ -10,17 +10,17 @@ class BannerSwiper extends StatelessWidget {
   ];
 
   final List<String> captions = [
-    "내가 만드는 UI/UX Nau Bot이란??",
-    "Nau를 즐기는 5가지 방법 ",
-    "Nau Bot 이용시 유의할점",
+    "내가 만드는 UI/UX NaU Bot이란??",
+    "NaU를 즐기는 5가지 방법 ",
+    "NaU Bot 이용시 유의할점",
   ];
 
   final List<String> contents = [
     """안녕하세요!\n
 \n
-내가 만드는 UI/UX, Nau Bot 입니다.\n
+내가 만드는 UI/UX, NaU Bot 입니다.\n
 \n
-Nau Bot은 Dall-E-2 Model를 이용하여 \n
+NaU Bot은 Dall-E-2 Model를 이용하여 \n
 개인만의 UI/UX 생성에 도움을 줍니다.\n
 \n
 [title]개인 맞춤형 디자인\n
@@ -29,19 +29,19 @@ Nau Bot은 Dall-E-2 Model를 이용하여 \n
 하지만, 현재 디자인 제작 서비스는\n
 특정 분야의 디자인에 대해서는 제작을 해주지 않습니다.\n
 \n
-하지만, Nau bot은 WEB/APP UI/UX디자인에 특화되어\n
+하지만, NaU bot은 WEB/APP UI/UX디자인에 특화되어\n
 웹, 앱 분야의 디자인을 원하는 사람에게 맞춰 디자인을 제공해줍니다.\n
 \n
 [title]나만의 디자인 공유 플랫폼\n
 \n
-Nau와의 대화를 통해 원하는 디자인을 얻으셨나요?!?\n
+NaU와의 대화를 통해 원하는 디자인을 얻으셨나요?!?\n
 나만의 디자인을 다른이에게 공유할 수 있습니다!!\n
 이를 통해 다른이의 디자인을 보고, 나만의 디자인을 공유하는 공간을 가져봐요:)\n""",
     """안녕하세요!\n
 \n
-내가 만드는 UI/UX, Nau Bot 입니다.\n
+내가 만드는 UI/UX, NaU Bot 입니다.\n
 \n
-Nau Bot은 Dall-E-2 Model를 이용하여 \n
+NaU Bot은 Dall-E-2 Model를 이용하여 \n
 개인만의 UI/UX 생성에 도움을 줍니다.\n
 \n
 [title]개인 맞춤형 디자인\n
@@ -50,7 +50,7 @@ Nau Bot은 Dall-E-2 Model를 이용하여 \n
 하지만, 현재 디자인 제작 서비스는\n
 특정 분야의 디자인에 대해서는 제작을 해주지 않습니다.\n
 \n
-하지만, Nau bot은 WEB/APP UI/UX디자인에 특화되어\n
+하지만, NaU bot은 WEB/APP UI/UX디자인에 특화되어\n
 웹, 앱 분야의 디자인을 원하는 사람에게 맞춰 디자인을 제공해줍니다.\n
 \n
 [title]나만의 디자인 공유 플랫폼\n
