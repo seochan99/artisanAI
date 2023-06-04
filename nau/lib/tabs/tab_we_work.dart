@@ -21,25 +21,29 @@ class Content {
   final String content;
   final String downloadUrl;
   final String date;
+  final String name;
 
   Content({
     // required this.title,
     required this.content,
     required this.downloadUrl,
     required this.date,
+    required this.name,
   });
 
 // json to content
   Content.fromJson(Map<String, dynamic> json)
       : content = json['content'],
         downloadUrl = json['downloadUrl'],
-        date = json['date'];
+        date = json['date'],
+        name = json['name'];
 
 // content to json
   Map<String, dynamic> toJson() => {
         'content': content,
         'downloadUrl': downloadUrl,
         'date': date,
+        'name': name,
       };
 }
 
@@ -82,20 +86,50 @@ class _WeWorkState extends State<WeWork> {
             return ListView.builder(
               itemCount: data.docs.length,
               itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(data.docs[index].data().downloadUrl),
-                      Text(
-                        data.docs[index].data().content,
-                        style: const TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                        ),
+                return Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color:
+                            Colors.grey, // Set your desired border color here
+                        width: 1.0, // Set your desired border width here
                       ),
-                    ],
+                      borderRadius: BorderRadius.circular(
+                          8.0), // Set your desired border radius here
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "제목 : ${data.docs[index].data().content}",
+                            style: const TextStyle(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            "작성자 : ${data.docs[index].data().name}",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              data.docs[index].data().downloadUrl,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
