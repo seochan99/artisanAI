@@ -59,7 +59,7 @@ class ChatMessage extends StatelessWidget {
               ).pOnly(right: 16)
             : const CircleAvatar(
                 backgroundImage: NetworkImage(
-                  "https://avatars.githubusercontent.com/u/78739194?v=4",
+                  "https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg",
                 ),
                 backgroundColor: Colors.white,
               ).pOnly(right: 16),

@@ -7,6 +7,7 @@ import 'package:nau/auth_screen.dart';
 import 'package:nau/firebase_options.dart';
 import 'package:nau/index_screen.dart';
 import 'package:nau/screens/image_input.dart';
+import 'package:nau/tabs/tab_we_work.dart';
 
 // toast messgaege
 showToast(String msg) {
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const AuthWidget(),
         '/index': (context) => const IndexScreen(),
-        '/list': (context) => const IndexScreen(),
+        '/list': (context) => const WeWork(),
         '/input': (context) => const InputScreen(),
       },
     );

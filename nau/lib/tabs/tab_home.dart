@@ -1,8 +1,10 @@
 //홈 페이지 Home()
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:nau/index_screen.dart';
+import 'package:nau/tabs/tab_we_work.dart';
 import 'package:nau/widgets/banner.dart';
 
 class Home extends StatefulWidget {
@@ -14,27 +16,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool nowLocation = false;
-  String selectedKeyword = "한강"; // 선택한 키워드 초기값
 
-// Set the latitude and longitude values
-
-  void handleKeywordSelected(String keyword) {
-    setState(() {
-      selectedKeyword = keyword;
-    });
-  }
+  final contentRef = FirebaseFirestore.instance
+      .collection('contents')
+      .withConverter<Content>(
+        fromFirestore: (snapshots, _) => Content.fromJson(snapshots.data()!),
+        toFirestore: (content, _) => content.toJson(),
+      );
 
   @override
   void initState() {
     super.initState();
-  }
-
-  goLogin() async {
-    gogoLogin();
-  }
-
-  gogoLogin() {
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   }
 
   @override
@@ -104,7 +96,84 @@ class _HomeState extends State<Home> {
                       fontSize: 21,
                       fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.left,
                   ),
+                ],
+              ),
+            ),
+
+            StreamBuilder<QuerySnapshot<Content>>(
+              stream: contentRef.orderBy('date', descending: true).snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Text('Something went wrong');
+                }
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                final data = snapshot.requireData;
+                return SizedBox(
+                  height: 200, // Set the desired height of the container
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data.size,
+                    itemBuilder: (context, index) {
+                      final imageUrl = data.docs[index].data().downloadUrl;
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(
+                            imageUrl,
+                            width: 160, // Set the desired width of each image
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+
+            // go chat button
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 25),
+                  const Text(
+                    "🤖 Nau Bot과 대화하기",
+                    style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Nau Bot과 대화를 통해 원하는 디자인을 얻어보세요!",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const IndexScreen()),
+                      );
+                    },
+                    child: const Text("대화하기"),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),

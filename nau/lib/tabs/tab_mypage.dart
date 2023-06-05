@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class Mypage extends StatefulWidget {
   const Mypage({Key? key}) : super(key: key);
@@ -62,22 +59,22 @@ class _MypageState extends State<Mypage> {
       await currentUser?.updateDisplayName(displayName);
 
       // Upload the profile image to Firebase Storage if a file is selected
-      if (profileImageFile != null) {
-        String profileImagePath = 'profile_images/${currentUser?.uid}.jpg';
-        firebase_storage.Reference storageRef = firebase_storage
-            .FirebaseStorage.instance
-            .ref()
-            .child(profileImagePath);
-        await storageRef.putFile(File(profileImageFile!.path));
-        String downloadURL = await storageRef.getDownloadURL();
+      // if (profileImageFile != null) {
+      //   String profileImagePath = 'profile_images/${currentUser?.uid}.jpg';
+      //   firebase_storage.Reference storageRef = firebase_storage
+      //       .FirebaseStorage.instance
+      //       .ref()
+      //       .child(profileImagePath);
+      //   await storageRef.putFile(File(profileImageFile!.path));
+      //   String downloadURL = await storageRef.getDownloadURL();
 
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(currentUser?.uid)
-            .update({
-          'profileImage': downloadURL,
-        });
-      }
+      //   await FirebaseFirestore.instance
+      //       .collection('users')
+      //       .doc(currentUser?.uid)
+      //       .update({
+      //     'profileImage': downloadURL,
+      //   });
+      // }
 
       await FirebaseFirestore.instance
           .collection('users')
@@ -137,7 +134,7 @@ class _MypageState extends State<Mypage> {
               child: const CircleAvatar(
                 radius: 50.0,
                 backgroundImage: NetworkImage(
-                    "https://avatars.githubusercontent.com/u/78739194?v=4"),
+                    "https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"),
               ),
             ),
             TextFormField(

@@ -73,7 +73,7 @@ class _WeWorkState extends State<WeWork> {
         backgroundColor: Colors.white,
       ),
       body: StreamBuilder<QuerySnapshot<Content>>(
-          stream: contentRef.snapshots(),
+          stream: contentRef.orderBy('date', descending: true).snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return const Text('Something went wrong');

@@ -95,10 +95,12 @@ There should be a description of app design, web design, function, atmosphere, e
       isImage: isImage,
     );
 
-    setState(() {
-      _isTyping = false;
-      _messages.insert(0, botMessage);
-    });
+    if (mounted) {
+      setState(() {
+        _isTyping = false;
+        _messages.insert(0, botMessage);
+      });
+    }
   }
 
   bool _isWebPlatform = false;
